@@ -2,11 +2,32 @@
   (:require [clojure.string :as str]
             [clojure.core :as core]))
 
+(defn split-empty [s]
+  (vec (map Integer/parseInt (str/split s #" +"))))
+
 (def lines (->> (slurp "test-input.txt")
                 str/split-lines))
 
-; (load-file "../TEST/post.clj")
-;
-; (def response (aoc-post/post-answer 2024 1 1 11))
-; (println "Response Body" (:body response))
-; (println "Status Code" (:status response))
+(def numbers (map split-empty lines))
+
+(defn parse-row [row]
+  (def elem-difference  (map - (rest row) row))
+  (def absolute-bound? (filter #(and (<= % 3) (>= % -3)) elem-difference))
+  (def increasing-bound? (filter #(and (<= % 3) (> % 0)) elem-difference))
+  (def decreasing-bound? (filter #(and (>= % -3) (< % 0)) elem-difference))
+  (and (= (count elem-difference) (count absolute-bound?))
+       (or
+        (= (count increasing-bound?) (count elem-difference))
+        (= (count decreasing-bound?) (count elem-difference)))
+       ))
+
+(def difrow (map parse-row numbers))
+(def safe-count (count (filter #(= % true) difrow)))
+(run! println difrow)
+
+(println safe-count)
+
+;(load-file "../TEST/post.clj")
+;(def response (aoc-post/post-answer 2024 2 1 safe-count))
+;(println "Response Body" (:body response))
+;(println "Status Code" (:status response))
