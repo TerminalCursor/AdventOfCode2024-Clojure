@@ -1,0 +1,4 @@
+#!/bin/bash
+DAY=1
+SESSION_COOKIE=""
+curl "https://adventofcode.com/2024/day/${DAY}/input" -H "Cookie: session=${SESSION_COOKIE}" | tee input-d$(printf "%02d" $DAY)p01.txt
