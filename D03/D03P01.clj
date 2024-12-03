@@ -1,15 +1,12 @@
-(ns d03p0T
+(ns d03p01
   (:require [clojure.string :as str]
             [clojure.core :as core]))
 
 (defn split-empty [s]
   (vec (map Integer/parseInt (str/split s #" +"))))
 
-(def lines (->> (slurp "test-input.txt")))
+(def lines (->> (slurp "input-d03p01.txt")))
 
-(println lines)
-
-(println (vec (core/re-seq #"mul\([0-9]{1,3},[0-9]{1,3}\)" lines)))
 (def product 0)
 (doseq [% (vec (core/re-seq #"mul\([0-9]{1,3},[0-9]{1,3}\)" lines))]
   (def numerals (core/re-seq #"[0-9]{1,3}" %))
@@ -18,7 +15,7 @@
   (def product (+ product (* n1 n2))))
 (println product)
 
-;(def answer)
+;(def answer product)
 ;(load-file "../TEST/post.clj")
 ;(def response (aoc-post/post-answer 2024 3 1 answer))
 ;(println "Response Body" (:body response))
