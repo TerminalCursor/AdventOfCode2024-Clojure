@@ -28,19 +28,19 @@
               y
               ))))
 
+(def exes (apply concat exes))
 (def truths 0)
-(doseq [exe exes]
-  (doseq [ex exe]
-    (def a (nth ex 0))
-    (def b (nth ex 1))
-    (if (and
-         (or (= a "MAS")
-             (= a "SAM"))
-         (or (= b "MAS")
-             (= b "SAM")))
-      (do
-        (def truths (+ truths 1))
-        ))))
+(doseq [ex exes]
+  (def a (nth ex 0))
+  (def b (nth ex 1))
+  (if (and
+       (or (= a "MAS")
+           (= a "SAM"))
+       (or (= b "MAS")
+           (= b "SAM")))
+    (do
+      (def truths (+ truths 1))
+      )))
 
 (println truths)
 
