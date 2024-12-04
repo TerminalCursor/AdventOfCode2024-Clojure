@@ -3,7 +3,6 @@
             [clojure.core :as core]))
 
 (def lines (->> (slurp "input-d04p01.txt")
-;(def lines (->> (slurp "test-input.txt")
                 str/split-lines))
 
 (println (str/join "\n" lines))
@@ -24,8 +23,6 @@
                (get lines (- x 1) (+ y 1))
                (get lines x y)
                (get lines (+ x 1) (- y 1)))
-              x
-              y
               ))))
 
 (def exes (apply concat exes))
