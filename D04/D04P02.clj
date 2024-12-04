@@ -34,10 +34,8 @@
   (def a (nth ex 0))
   (def b (nth ex 1))
   (if (and
-       (or (= a "MAS")
-           (= a "SAM"))
-       (or (= b "MAS")
-           (= b "SAM")))
+       (contains? #{"MAS" "SAM"} a)
+       (contains? #{"MAS" "SAM"} b))
     (do
       (def truths (+ truths 1))
       )))
