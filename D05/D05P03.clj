@@ -1,4 +1,4 @@
-(ns d05p02
+(ns d05p03
   (:require [clojure.string :as str]
             [clojure.set :as cset]
             [clojure.core :as core]))
@@ -134,7 +134,15 @@
         (core/assert (not (contains? global-l v)))
         (def local-rules (assoc local-rules v (list (cset/intersection global-l row-s) (cset/intersection global-r row-s))))
         )
-
+;      (println (filter
+;                #(= (second %) 1)
+;                (map #(
+;                       (list
+;                        %
+;                        (count
+;                         (first
+;                          (get local-rules %)))))
+                                        ;                     (keys local-rules))))
       (defn find-least [x]
         (list
          x
@@ -145,6 +153,13 @@
                                (filter #(= (second %) 0)
                                        (map find-least
                                             (keys local-rules))))))
+      ;(println local-rules)
+      ;(def bounds (apply map list (vals local-rules)))
+      ;(def lower-bounds (vec (map vec (first bounds))))
+      ;(def lower-bounds (set (core/flatten lower-bounds)))
+      ;(def upper-bounds (vec (map vec (second bounds))))
+      ;(def upper-bounds (set (core/flatten upper-bounds)))
+      ;(def upper-value (first (take 1 (cset/difference row-s lower-bounds))))
       (def remaining (filter #(not (= % least-value)) row))
       (concat (list least-value) (construct-ordering remaining)))
     row
