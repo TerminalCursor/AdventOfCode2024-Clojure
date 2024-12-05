@@ -57,16 +57,6 @@
 (defn fix [row rules]
   (def tree '()))
 
-(defn position 
-    "Returns the position of elt in this list, or nil if not present"
-    ([list elt n]
-        (cond
-            (empty? list) nil
-            (= (first list) elt) n
-            true (position (rest list) elt (inc n))))
-    ([list elt]
-        (position list elt 0)))
-
 (def rule-order {})
 (doseq [rule rules]
   (def n-0 (nth rule 0))
@@ -86,29 +76,6 @@
                      (second rule-n1)))
   (def rule-order (assoc rule-order n-0 rule-n0))
   (def rule-order (assoc rule-order n-1 rule-n1))
-
-;  (def contain-0 (some #{n-0} global-order))
-;  (def contain-1 (some #{n-1} global-order))
-;  (when (and (= contain-0 nil) (= contain-1 nil))
-;    (def global-order (concat global-order (list n-0 n-1))))
-;  (when (and (= contain-1 nil) (not (= contain-0 nil)))
-;    (def global-order (concat global-order (list n-1))))
-;  (when (and (= contain-0 nil) (not (= contain-1 nil)))
-;    (def global-order (concat (list n-0) global-order)))
-;;  (when (not (or (= contain-0 nil) (= contain-1 nil)))
-;;    (def i-0 (position global-order n-0))
-;;    (def i-1 (position global-order n-1))
-;;    (when (< i-1 i-0)
-;;      (def split-parts (core/split-at i-1 global-order))
-;;      (def split-left (first split-parts))
-;;      (def split-mid (rest (last split-parts)))
-;;      (def i-01 (- (- i-0 i-1) 1))
-;;      (def split-parts (core/split-at i-01 split-mid))
-;;      (def split-mid (first split-parts))
-;;      (def split-right (rest (last split-parts)))
-;;      (def global-order (concat split-left split-mid (list n-0 n-1) split-right))
-;;      )
-;;    )
   )
 (doseq [key (keys rule-order)]
   (def v (get rule-order key))
